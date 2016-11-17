@@ -1,0 +1,12 @@
+
+<div class="container">
+  <h1>Add Album for @Model.GetName()</h1>
+  <form class="form-control" action="/artist" method="post">
+    <label for="album">Album Title</label>
+    <input type="text" name="album">
+    <button type="submit" name="button" class="btn">Add</button>
+  </form>
+</div>
+
+<h5><a href="/artists/@Model.GetId()">Back to Artist Page</a></h5>
+<h5><a href='/artists'>View Artists</a></h5>

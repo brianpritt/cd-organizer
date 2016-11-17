@@ -1,0 +1,12 @@
+<h1>@Model.GetName()</h1>
+<br>
+<h3>Albums:</h3>
+<ul>
+  @foreach (var album in Model.GetCds())
+  {
+    <li>@album.GetTitle()</li>
+  }
+</ul>
+<p><a href="/artists/new_album">Add an album</a></p>
+<p><a href="/artists">Back to Artists</a></p>
+<p><a href="/">Home</a></p>
