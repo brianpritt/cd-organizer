@@ -1,20 +1,20 @@
 using System.Collections.Generic;
 
-namespace CdOrganizer.Objects
+namespace AlbumOrganizer.Objects
 {
   public class Artist
   {
     private string _name;
     private static List<Artist> _instances = new List<Artist> {};
     private int _id;
-    private List<Cd> _cds;
+    private List<Album> _albums;
 
     public Artist(string artistName)
     {
       _name = artistName;
       _instances.Add(this);
       _id = _instances.Count;
-      _cds = new List<Cd>{};
+      _albums = new List<Album>{};
     }
 
     public string GetName()
@@ -33,13 +33,31 @@ namespace CdOrganizer.Objects
     {
       return _id;
     }
-    public List<Cd> GetCds()
+    public List<Album> GetAlbums()
     {
-      return _cds;
+      return _albums;
     }
-    public Artist FindById(int idNumber)
+    public static Artist FindById(int idNumber)
     {
       return _instances[idNumber-1];
+    }
+    public void AddAlbum(Album newAlbum)
+    {
+      _albums.Add(newAlbum);
+    }
+    public static List<Artist> SearchArtists(string searchInput)
+    {
+      List<Artist> searchList = new List<Artist> {};
+      string searchInputLower = searchInput.ToLower();
+      foreach (Artist artist in _instances)
+      {
+        string artistName = artist.GetName().ToLower();
+        if (artistName.Contains(searchInputLower))
+        {
+          searchList.Add(artist);
+        }
+      }
+      return searchList;
     }
   }
 }

@@ -2,11 +2,12 @@
 <br>
 <h3>Albums:</h3>
 <ul>
-  @foreach (var album in Model.GetCds())
+  @foreach (var album in Model.GetAlbums())
   {
     <li>@album.GetTitle()</li>
   }
 </ul>
-<p><a href="/artists/new_album">Add an album</a></p>
+<p><a href="/artists/@Model.GetId()/new_album">Add an album</a></p>
 <p><a href="/artists">Back to Artists</a></p>
+<p><a href="/search_by_artist">Search Artists</a></p>
 <p><a href="/">Home</a></p>

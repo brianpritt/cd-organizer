@@ -1,28 +1,28 @@
 using System.Collections.Generic;
 
-namespace CdOrganizer.Objects
+namespace AlbumOrganizer.Objects
 {
-  public class Cd
+  public class Album
   {
     private string _artist;
     private string _title;
     private string _genre;
     private int _id;
 
-    private static List<Cd> _allCds = new List<Cd> {};
+    private static List<Album> _allAlbums = new List<Album> {};
 
-    public Cd(string cdArtist, string cdTitle, string cdGenre = "none")
+    public Album(string albumArtist, string albumTitle, string albumGenre = "none")
     {
-      _artist = cdArtist;
-      _title = cdTitle;
-      _genre = cdGenre;
-      _allCds.Add(this);
-      _id = _allCds.Count;
+      _artist = albumArtist;
+      _title = albumTitle;
+      _genre = albumGenre;
+      _allAlbums.Add(this);
+      _id = _allAlbums.Count;
     }
 
-    public static List<Cd> GetAll()
+    public static List<Album> GetAll()
     {
-      return _allCds;
+      return _allAlbums;
     }
 
     public void SetArtist(string newArtist)
@@ -52,10 +52,10 @@ namespace CdOrganizer.Objects
       return _genre;
     }
 
-    public Cd FindById(int idNumber)
+    public Album FindById(int idNumber)
     {
-      return _allCds[idNumber-1];
+      return _allAlbums[idNumber-1];
     }
-    
+
   }
 }

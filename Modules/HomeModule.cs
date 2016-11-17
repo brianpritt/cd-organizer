@@ -1,8 +1,9 @@
 using Nancy;
+using System;
 using System.Collections.Generic;
-using CdOrganizer.Objects;
+using AlbumOrganizer.Objects;
 
-namespace CdOrganizer
+namespace AlbumOrganizer
 {
   public class HomeModule : NancyModule
   {
@@ -14,21 +15,40 @@ namespace CdOrganizer
       Get["/artists"] = _ =>{
         return View["artists.cshtml", Artist.GetAll()];
       };
+      Get["/artists/new"] = _ =>{
+        return View["new_artist_form.cshtml"];
+      };
+      Post["/artists"] = _ =>{
+        string artistName = Request.Form["artist"];
+        Artist newArtist = new Artist(artistName);
+        List<Artist> allArtists = Artist.GetAll();
+        return View["artists.cshtml", allArtists];
+      };
       Get["/artists/{id}"] = parameters =>{
-        Artist currentArtist = Artist.FindById(parameters.id);
+        var currentArtist = Artist.FindById(parameters.id);
         return View["artist.cshtml", currentArtist];
       };
       Get["/artists/{id}/new_album"] = parameters =>{
-        Artist currentArtist = Artist.FindById(parameters.id);
+        var currentArtist = Artist.FindById(parameters.id);
         return View["new_album_form.cshtml", currentArtist];
       };
-
-      Post["/artists"] = _ =>{
-        string artistName = Request.Form["name"];
-        Artist newArtist = new Artist(artistName);
-        var allArtists = Artist.GetAll();
-        return View["artists.cshtml", allArtists];
+      Get["/search_by_artist"]= _ =>{
+        return View["search_form.cshtml"];
       };
+      Post["/search_results"] = _ =>{
+        string search = Request.Form["artist"];
+        var searchResults = Artist.SearchArtists(search);
+        return View["search_results.cshtml", searchResults];
+      };
+      Post["/artist"] = _ =>{
+        int artistId = Request.Form["artist-id"];
+        string albumName = Request.Form["album"];
+        var currentArtist = Artist.FindById(artistId);
+        var currentAlbum = new Album(currentArtist.GetName(), albumName);
+        currentArtist.AddAlbum(currentAlbum);
+        return View["artist.cshtml", currentArtist];
+      };
+
     }
   }
 }
